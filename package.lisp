@@ -14,4 +14,5 @@
            #:extract-day
            #:date-diff
            #:num-day-of-week
-           #:date-of-week))
+           #:date-of-week
+           #:last-month))

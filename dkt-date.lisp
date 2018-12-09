@@ -73,14 +73,22 @@ therefore exactly ten characters long."
   (subseq iso-8601-date-time 0 10))
 
 
-#+TODO(defun last-month ()
-  (let* ((today-str (iso-8601-date-now :hyphen nil))
-         (year (parse-integer (subseq today-str 0 4)))
-         (month (parse-integer (subseq today-str 4 6)))
-         (day (parse-integer (subseq today-str 6))))
-    (multiple-value-bind (year month day) (date-calc:ADD-DELTA-YM year month day 0 -1)
-      (declare (ignore day))
-      (concatenate 'string (four-digit-str year) "-" (two-digit-str month)))))
+(defun last-month ()
+  "Return ISO 8601 year/month string for the month previous to the current month.
+Example: if current month is May 2020, return \"2020-04\"."
+  (let* ((today-str (iso-8601-date-now))
+         (old-year-integer (extract-year today-str))
+         (old-month-integer (extract-month today-str))
+         (new-year-integer (if (> old-month-integer 1)
+                               old-year-integer
+                               (1- old-year-integer)))
+         (new-month-integer (if (> old-month-integer 1)
+                                (1- old-month-integer)
+                                12)))
+    (concatenate 'string
+                 (four-digit-str new-year-integer)
+                 "-"
+                 (two-digit-str new-month-integer))))
 
 
 (defun extract-year (iso-8601-date)
