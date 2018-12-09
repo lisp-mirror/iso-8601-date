@@ -15,4 +15,5 @@
            #:date-diff
            #:num-day-of-week
            #:date-of-week
-           #:last-month))
+           #:last-month
+           #:date-add))

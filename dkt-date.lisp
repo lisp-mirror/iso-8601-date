@@ -132,3 +132,9 @@ Example: if current month is May 2020, return \"2020-04\"."
   "Return the English day of the week name for the given DATE."
   (nth (1- (num-day-of-week date)) *week-days*))
 
+
+(defun date-add (date days)
+  "Add DAYS number of days to DATE."
+  (let ((new-date-stamp (local-time:timestamp+ (local-time:parse-timestring date)
+                                               days :day)))
+    (subseq (local-time:to-rfc3339-timestring new-date-stamp) 0 10)))
