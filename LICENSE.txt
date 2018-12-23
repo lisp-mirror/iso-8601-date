@@ -1,4 +1,4 @@
-The code library is licenses under the terms of the GNU Lesser General
+The code library is licensed under the terms of the GNU Lesser General
 Public License version 2.1 ("LGPL") modified and clarified by the
 Franz Incorporated Preamble, which appears below. This is known as the
 "LLGPL".
