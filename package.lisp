@@ -1,9 +1,8 @@
 ;;;; package.lisp
 
-(defpackage #:dkt-date
+(defpackage #:eclecticse.iso-8601-date
   (:use #:cl)
-  (:export #:day-of-week
-           #:human-date
+  (:export #:human-date
            #:iso-8601-date-now
            #:iso-8601-time-now
            #:iso-8601-date-time-now
@@ -14,6 +13,5 @@
            #:extract-day
            #:date-diff
            #:num-day-of-week
-           #:date-of-week
            #:last-month
            #:date-add))

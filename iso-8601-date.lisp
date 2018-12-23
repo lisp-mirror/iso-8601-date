@@ -1,6 +1,6 @@
-;;;; dkt-date.lisp
+;;;; iso-8601-date.lisp
 
-(in-package #:dkt-date)
+(in-package #:eclecticse.iso-8601-date)
 
 (defparameter *week-days* '("Sunday" "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday"))
 
