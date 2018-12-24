@@ -2,7 +2,8 @@
 
 (defpackage #:eclecticse.iso-8601-date
   (:use #:cl)
-  (:export #:human-date
+  (:export #:d/m/y->iso-8601-date
+           #:human-date
            #:iso-8601-date-now
            #:iso-8601-time-now
            #:iso-8601-date-time-now

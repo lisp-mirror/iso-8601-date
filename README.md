@@ -8,6 +8,12 @@ representation.
 
 ## Function List
 
+* __d/m/y->iso-8601-date__
+
+  Convert a date string in d/m/y format into ISO 8601 string format.
+  Returns NIL for invalid dates. Does not check leap year for the
+  number of days in February (assumes 29 February is correct).
+  
 * __date-add__
   
   Add a given number of days to a date.

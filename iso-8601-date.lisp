@@ -138,3 +138,33 @@ Example: if current month is May 2020, return \"2020-04\"."
   (let ((new-date-stamp (local-time:timestamp+ (local-time:parse-timestring date)
                                                days :day)))
     (subseq (local-time:to-rfc3339-timestring new-date-stamp) 0 10)))
+
+
+(defun d/m/y->iso-8601-date (dmy-date-string &key (hyphen t))
+  "Convert a d/m/y date string into ISO 8601 string format. Returns
+NIL for invalid dates. Does not check leap years for the number of
+days in February."
+  (let ((day-mark (position #\/ dmy-date-string))
+        (month-mark (position #\/ dmy-date-string :from-end t)))
+    (when (and day-mark
+               month-mark
+               (< day-mark month-mark)
+               (< month-mark (1- (length dmy-date-string))))
+      (flet ((to-int (string)
+               (parse-integer string :junk-allowed nil)))
+        (handler-case (let ((day-num (to-int (subseq dmy-date-string 0 day-mark)))
+                            (month-num (to-int (subseq dmy-date-string (1+ day-mark) month-mark)))
+                            (year-num (to-int (subseq dmy-date-string (1+ month-mark)))))
+                        (when (and day-num month-num year-num
+                                   (plusp day-num) (plusp month-num) (plusp year-num)
+                                   (< day-num 32) (< month-num 13) (< year-num 10000)
+                                   (cond ((= day-num 31) ; Jan Mar May Jul Aug Oct Dec
+                                          (position month-num '(1 3 5 7 8 10 12)))
+                                         ((= day-num 30) ; Apr Jun Sep Nov
+                                          (position month-num '(4 6 9 11)))
+                                         ((or (= day-num 29) (= day-num 28))
+                                          (= month-num 2))
+                                         (t
+                                          t)))
+                          (make-iso-8601-date year-num month-num day-num :hyphen hyphen)))
+          (t () nil))))))
